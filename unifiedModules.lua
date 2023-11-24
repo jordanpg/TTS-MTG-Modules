@@ -1,4 +1,4 @@
-moduleVersion = 2.81
+moduleVersion = 2.82
 pID = "_MTG_Simplified_UNIFIED"
 
 --Easy Modules Unified
@@ -2195,6 +2195,7 @@ function ParseCardData(dataTable)
                     cardData[index]["power"] = faceSources[index]["power"] ~= nil and faceSources[index]["power"] or nil
                     cardData[index]["toughness"] = faceSources[index]["toughness"] ~= nil and faceSources[index]["toughness"] or nil
                     cardData[index]["loyalty"] = faceSources[index]["loyalty"] ~= nil and faceSources[index]["loyalty"] or nil
+                    cardData[index]["keywords"] = faceSources[index]["keywords"] ~= nil and faceSources[index]["keywords"] or {}
                 end
 
                 --dirty token fix?
@@ -2249,6 +2250,7 @@ function ParseCardData(dataTable)
                     else --power/toughness
                         data.cardFaces[index]["basePower"] = cardData[index]["power"] ~= nil and cardData[index]["power"] or nil
                         data.cardFaces[index]["baseToughness"] = cardData[index]["toughness"] ~= nil and cardData[index]["toughness"] or nil
+                        data.cardFaces[index]["keywords"] = cardData[index]["keywords"] ~= nil and cardData[index]["keywords"] or {}
                     end
                 end
 
@@ -2862,4 +2864,10 @@ function ToBool(boolString)
     if boolString == "true" then return true
     else return false
     end
+end
+
+-- t: { name: string }
+function getParsedData(t)
+    local urlifiedName = UrlifyCardName(t.name)
+    return parsedScryfallCache[urlifiedName]
 end
