@@ -1,4 +1,4 @@
-moduleVersion = 2.79
+moduleVersion = 2.81
 pID = "_MTG_Simplified_UNIFIED"
 
 --Easy Modules Unified
@@ -275,11 +275,11 @@ function RegisterModule()
     local enc = Global.getVar('Encoder')
     if enc ~= nil then
         RefreshEncoderVersion(enc)
-        if encVersion < 4.2 then
+        if encVersion < 4.2 then 
             broadcastToAll("[888888][EASY MODULES][-]\nEncoder version too old. To use this module, manually upgrade it to v4.20+ or type 'force encoder update' to attempt a forced update")
             return
         end
-
+    
         local properties
         if encVersion < 4.4 then
             properties = {
@@ -303,9 +303,9 @@ function RegisterModule()
         enc.call("APIregisterProperty",properties)
 
         local value = {
-            valueID = 'tyrantUnified',
+            valueID = 'tyrantUnified', 
             validType = 'nil',
-            desc = "why do my values have descriptions",
+            desc = "why do my values have descriptions",  
             default = {
                 hasParsed = false,
                 exactCopyOffset = 0,
@@ -374,18 +374,18 @@ function onChat(message, player)
             WebRequest.get("https://raw.githubusercontent.com/Jophire/Tabletop-Simulator-Workshop-Items/master/Encoder/Encoder%20Core.lua", self, "ForcePlaceholderEncoder")
         elseif string.find (message, 'reload') ~= nil then
             enc = Global.getVar("Encoder")
-            if enc ~= nil then
+            if enc ~= nil then 
                 BroadcastToAll("Reloading Encoder object")
                 enc.reload()
             end
         end
     end
-
+    
     if string.find(message, '^force importer') ~= nil then
         if string.find (message, 'update') ~= nil then
-            WebRequest.get("https://raw.githubusercontent.com/jordanpg/Tabletop-Simulator-Scripts/master/Magic/Importer.lua", self, "ForceImporterUpdate")
+            WebRequest.get("https://raw.githubusercontent.com/Amuzet/Tabletop-Simulator-Scripts/master/Magic/Importer.lua", self, "ForceImporterUpdate")
         elseif string.find (message, 'temporary') ~= nil then
-            WebRequest.get("https://raw.githubusercontent.com/jordanpg/Tabletop-Simulator-Scripts/master/Magic/Importer.lua", self, "ForcePlaceholderImporter")
+            WebRequest.get("https://raw.githubusercontent.com/Amuzet/Tabletop-Simulator-Scripts/master/Magic/Importer.lua", self, "ForcePlaceholderImporter")
         elseif string.find (message, 'reload') ~= nil then
             local amuzetCardImporter = GetAmuzetsCardImporter()
             amuzetCardImporter.reload()
@@ -459,8 +459,8 @@ function BroadcastSettings()
 
     broadcastToAll("Type [FFCC00]'module help'[-] to list commands")
 
-    if autoActivateModule == false then broadcastToAll("\n[FF0000]Auto-encoding is [FFFFFF]OFF[-] - Nothing will activate automatically.\nType [FFFFFF]'auto encode on'[-] to turn it back on\n")
-    else
+    if autoActivateModule == false then broadcastToAll("\n[FF0000]Auto-encoding is [FFFFFF]OFF[-] - Nothing will activate automatically.\nType [FFFFFF]'auto encode on'[-] to turn it back on\n") 
+    else 
         for key, player in pairs(Player.getPlayers()) do
             if autoActivatePlayerSettings[player.steam_id] ~= nil then
             --honestly we don't really car to show this unless the player disabled it, I'll keep the string ready for it but let's avoid spamming too much
@@ -529,7 +529,7 @@ function createButtons(t)
         local cardOwner = data.ownerColor == nil and "Grey" or data.ownerColor
         local ownershipColor = Color.fromString(cardOwner)
         local ownerColorHex = ownershipColor:toHex(false)
-
+        
         local cardController = data.controllerColor == nil and "Grey" or data.controllerColor
         local controlColor = Color.fromString(cardController)
         local controlColorHex = controlColor:toHex(false)
@@ -544,42 +544,42 @@ function createButtons(t)
             hexTooltipMidlight.."Click to become CONTROLLER[-]\n"..
             hexTooltipLowlight.."R-Click: Become OWNER[-]\n\n"..
             hexTooltipHighlight.."Button Below:[-]"..hexTooltipMidlight.." Toggle Ownership Gem"
-
-        local buttonTooltipCounterSingleClick =
+        
+        local buttonTooltipCounterSingleClick = 
             multiSelectTooltip..
             "Adds 1"..hexTooltipMidlight.." to the counter[-]\n"..
             hexTooltipMidlight.."R-Click: "..hexTooltipLowlight.."Subtracts 1 instead[-]\n\n"..
             hexTooltipHighlight.."Button Below:[-]"..hexTooltipMidlight.." Add/Subtract 10[-]"
-
-        local buttonTooltipCounterTenClick =
+         
+        local buttonTooltipCounterTenClick = 
             multiSelectTooltip..
             "Adds 10"..hexTooltipMidlight.." to the counter[-]\n"..
             hexTooltipMidlight.."R-Click: "..hexTooltipLowlight.."Subtracts 10 instead[-]"
 
-        local buttonTooltipPowerSingleClick =
+        local buttonTooltipPowerSingleClick = 
             multiSelectTooltip..
             "Adds 1"..hexTooltipMidlight.." to Power[-]\n"..
             hexTooltipMidlight.."R-Click: "..hexTooltipLowlight.."Subtracts 1 instead[-]\n\n"..
             hexTooltipHighlight.."Button Below:[-]"..hexTooltipMidlight.." Add/Subtract BOTH[-]"
 
-        local buttonTooltipToughnessSingleClick =
+        local buttonTooltipToughnessSingleClick = 
             multiSelectTooltip..
             "Adds 1"..hexTooltipMidlight.." to Toughness[-]\n"..
             hexTooltipMidlight.."R-Click: "..hexTooltipLowlight.."Subtracts 1 instead[-]\n\n"..
             hexTooltipHighlight.."Button Below:[-]"..hexTooltipMidlight.." Add/Subtract BOTH[-]"
 
-        local buttonTooltipPowTouSingleClick =
+        local buttonTooltipPowTouSingleClick = 
             multiSelectTooltip..
             "Adds 1/1"..hexTooltipMidlight.." to Power/Toughness[-]\n"..
             hexTooltipMidlight.."R-Click: "..hexTooltipLowlight.."Subtracts 1/1 instead[-]"
 
-        local buttonTooltipPlusOneSingleClick =
+        local buttonTooltipPlusOneSingleClick = 
             multiSelectTooltip..
             "Adds a +1/+1"..hexTooltipMidlight.." to counters[-]\n"..
             hexTooltipMidlight.."R-Click: "..hexTooltipLowlight.."Subtracts instead[-]\n\n"..
             hexTooltipHighlight.."Button Above:[-]"..hexTooltipMidlight.." Add/Subtract 10[-]"
-
-        local buttonTooltipPlusOneTenClick =
+         
+        local buttonTooltipPlusOneTenClick = 
             multiSelectTooltip..
             "Adds +10/+10"..hexTooltipMidlight.." to counters[-]\n"..
             hexTooltipMidlight.."R-Click: "..hexTooltipLowlight.."Subtracts instead[-]"
@@ -641,53 +641,53 @@ function createButtons(t)
             hexTooltipLowlight.."Flip the card and change the active face\n\n"..
             hexTooltipMidlight.."R-CLICK:\n[-]"..
             hexTooltipLowlight.."Changes active face without flipping[-]"
-
+        
         local buttonTooltipFlipDFCbackless =
             hexTooltipRedlight.."NO BACK FACE IMAGE FOUND[-]\n"..
             "Click to reimport card \n\n"..
             hexTooltipMidlight.."R-CLICK:\n[-]"..
             hexTooltipLowlight.."Change active face without flipping[-]"
-
+        
         local buttonTooltipFlipDFColdImport =
             hexTooltipRedlight.."BAD DATA - REIMPORT REQUIRED[-]\n"..
             "Click to reimport card \n\n"..
             hexTooltipMidlight.."R-CLICK:\n[-]"..
             hexTooltipLowlight.."Change active face without flipping[-]"
-
+        
         if true then --side buttons, toggles on the left and utils on the right
                 local buttonBackgroundColorOff = {0,0,0,  0.7}
                 local buttonBackgroundColorOn = {0,0,0,   0.9}
                 local buttonBackgroundColorError = {0.6,0,0,   0.5}
-
+    
                 local buttonTextColorOff = {0.8,0.8,0.8, 0.8}
                 local buttonTextColorOn = {1,0.8,0.4, 0.7}
                 local buttonTextColorOnExtra = {0.6, 1, 0.7, 0.7}
                 local buttonTextSize = 55
-
+    
                 local buttonHoverColor = {0,0,0,1}
-
+    
                 local buttonDimensions = 90
                 local verticalSpacing = 0.2
-
+    
                 local horizontalOffset = 1.035
                 local verticalOffset = -0.36
-
+    
                 --toggle counters & planeswalker abilities
                 t.obj.createButton({
                     click_function = 'ToggleDisplayCounter',
                     function_owner = self,
-
+    
                     label = "①",
                     font_size = buttonTextSize + 8,
                     font_color = data.displayCounters and ((data.cardFaces[activeFace].isPlaneswalker and data.displayPlaneswalkerAbilities) and buttonTextColorOnExtra or buttonTextColorOn) or buttonTextColorOff,
                     tooltip = buttonTooltipToggleDisplayCounters..((data.displayCounters and data.cardFaces[activeFace].isPlaneswalker) and buttonTooltipToggleDisplayCountersPlaneswalkerAbilities or ""),
-
+    
                     height = buttonDimensions,
                     width = buttonDimensions,
-
+    
                     color = data.displayCounters and buttonBackgroundColorOn or buttonBackgroundColorOff,
                     hover_color = buttonHoverColor,
-
+    
                     rotation = {0, 0, 90 - 90 * flip},
                     position =
                     {
@@ -696,23 +696,23 @@ function createButtons(t)
                         verticalOffset + 2 * verticalSpacing * scaler.y
                     }
                 })
-
+    
                 --toggle powtou
                 t.obj.createButton({
                     click_function = 'ToggleDisplayPowTou',
                     function_owner = self,
-
+    
                     label = "1/",
                     font_size = buttonTextSize,
                     font_color = data.displayPowTou and buttonTextColorOn or buttonTextColorOff,
                     tooltip = buttonTooltipToggleDisplayPowTou,
-
+    
                     height = buttonDimensions,
                     width = buttonDimensions,
-
+    
                     color = data.displayPowTou and buttonBackgroundColorOn or buttonBackgroundColorOff,
                     hover_color = buttonHoverColor,
-
+    
                     rotation = {0, 0, 90 - 90 * flip},
                     position =
                     {
@@ -721,23 +721,23 @@ function createButtons(t)
                         verticalOffset + 1 * verticalSpacing * scaler.y
                     }
                 })
-
+    
                 --toggle plusone
                 t.obj.createButton({
                     click_function = 'ToggleDisplayPlusOne',
                     function_owner = self,
-
+    
                     label = "+1 ",
                     font_size = buttonTextSize,
                     font_color = data.displayPlusOne and buttonTextColorOn or buttonTextColorOff,
                     tooltip = buttonTooltipToggleDisplayPlusOne,
-
+    
                     height = buttonDimensions,
                     width = buttonDimensions,
-
+    
                     color = data.displayPlusOne and buttonBackgroundColorOn or buttonBackgroundColorOff,
                     hover_color = buttonHoverColor,
-
+    
                     rotation = {0, 0, 90 - 90 * flip},
                     position =
                     {
@@ -746,23 +746,23 @@ function createButtons(t)
                         verticalOffset + 0 * verticalSpacing * scaler.y
                     }
                 })
-
+    
                 --exact copy
                 t.obj.createButton({
                     click_function = "MakeExactCopy",
                     function_owner = self,
-
+    
                     label = "❐",
                     font_size = buttonTextSize + 6,
                     font_color = buttonTextColorOff,
                     tooltip = buttonTooltipExactCopy,
-
+    
                     height = buttonDimensions,
                     width = buttonDimensions,
-
+    
                     color = buttonBackgroundColorOff,
                     hover_color = buttonHoverColor,
-
+    
                     rotation = {0, 0, 90 - 90 * flip},
                     position =
                     {
@@ -771,24 +771,24 @@ function createButtons(t)
                         verticalOffset + 0 * verticalSpacing * scaler.y
                     }
                 })
-
+    
                 --reimport
                 if amuzetCardImporter ~= nil then --re-import button
                     t.obj.createButton({
                         click_function = "ReImport",
                         function_owner = self,
-
+    
                         label = "↺",
                         font_size = buttonTextSize + 16,
                         font_color = buttonTextColorOff,
                         tooltip = buttonTooltipReImport,
-
+    
                         height = buttonDimensions,
                         width = buttonDimensions,
-
+    
                         color = buttonBackgroundColorOff,
                         hover_color = buttonHoverColor,
-
+    
                         rotation = {0, 0, 90 - 90 * flip},
                         position =
                         {
@@ -801,18 +801,18 @@ function createButtons(t)
                     t.obj.createButton({
                         click_function = 'ReImport',
                         function_owner = self,
-
+    
                         label = "↺",
                         font_size = buttonTextSize + 16,
                         font_color = buttonTextColorOff,
                         tooltip = buttonTooltipReImportMissingImporter,
-
+    
                         height = buttonDimensions,
                         width = buttonDimensions,
-
+    
                         color = buttonBackgroundColorError,
                         hover_color = buttonBackgroundColorError,
-
+    
                         rotation = {0, 0, 90 - 90 * flip},
                         position =
                         {
@@ -822,24 +822,24 @@ function createButtons(t)
                         }
                     })
                 end
-
+    
                 --emblems and tokens
                 if amuzetCardImporter ~= nil then --emblem button
                     t.obj.createButton({
                         click_function = "EmblemsAndTokens",
                         function_owner = self,
-
+        
                         label = "☗",
                         font_size = buttonTextSize,
                         font_color = buttonTextColorOff,
                         tooltip = buttonTooltipEmblemsTokens,
-
+        
                         height = buttonDimensions,
                         width = buttonDimensions,
-
+        
                         color = buttonBackgroundColorOff,
                         hover_color = buttonHoverColor,
-
+        
                         rotation = {0, 180, 90 - 90 * flip}, -- the label looks like an emblem when upside down
                         position =
                         {
@@ -852,18 +852,18 @@ function createButtons(t)
                     t.obj.createButton({
                         click_function = 'EmblemsAndTokens',
                         function_owner = self,
-
+        
                         label = "☗",
                         font_size = buttonTextSize,
                         font_color = buttonTextColorOff,
                         tooltip = buttonTooltipEmblemsTokensMissingImporter,
-
+        
                         height = buttonDimensions,
                         width = buttonDimensions,
-
+        
                         color = buttonBackgroundColorError,
                         hover_color = buttonBackgroundColorError,
-
+        
                         rotation = {0, 180, 90 - 90 * flip}, -- the label looks like an emblem when upside down
                         position =
                         {
@@ -956,7 +956,7 @@ function createButtons(t)
                 local pwAbilityHorizontalOffset = 1.055
 
                 local pwTinyTextOffset = 0.006
-
+    
                 local pwAbilityFontSize = 180
                 local pwNeutralAbilityFontSize = pwAbilityFontSize * 1.7
                 --■☗
@@ -966,88 +966,88 @@ function createButtons(t)
                     for index, value in ipairs(data.cardFaces[activeFace]["pwAbilities"]) do
                         if data.cardFaces[activeFace]["pwAbilities"][index]["abilityDelta"] ~= nil then
                             local pwAbilityDelta = data.cardFaces[activeFace]["pwAbilities"][index]["abilityDelta"]
-                            local pwAbilityCost =
+                            local pwAbilityCost = 
                                 type(pwAbilityDelta) == "string" and "-X " or
                                 (pwAbilityDelta > 0 and "+" or "")..pwAbilityDelta.." "--(pwAbilityDelta ~= 0 and " " or "")
                             local pwAbilityTooltip =
-                                hexTooltipHighlight..pwAbilityCost.."Loyalty:[-]\n"..
+                                hexTooltipHighlight..pwAbilityCost.."Loyalty:[-]\n".. 
                                 hexTooltipMidlight..data.cardFaces[activeFace]["pwAbilities"][index]["abilityText"]
-
+                                
                             local isNeutralAbility = pwAbilityDelta == 0
                             pwAbilityDelta = type(pwAbilityDelta) ~= "number" and -1 or pwAbilityDelta
-
+    
                             local pwAbilityVerticalOffset = GetPlaneswalkerAbilityVerticalOffset (index, data.cardFaces[activeFace]["pwCount"])
-
+    
                             t.obj.createButton({
                                 label = isNeutralAbility and "■" or "☗",
                                 tooltip = pwAbilityTooltip..buttonPlaneswalkerAbilityRightClick,
-
+                
                                 click_function='ReceivePlaneswalkerClickSlot'..index,
                                 function_owner=self,
-
+                
                                 position =
                                 {
                                     pwAbilityHorizontalOffset * ((-loyaltyHorizontalOffset)*flip*scaler.x),
                                     0.35*flip*scaler.z,
                                     pwAbilityVerticalOffset * scaler.y
                                 },
-
+                
                                 height= 100,
                                 width= 140,
                                 color = colorDarkGrey,
-
+                
                                 font_size= isNeutralAbility and pwNeutralAbilityFontSize or pwAbilityFontSize,
                                 font_color = colorLightGrey,
-
+                
                                 rotation={0,pwAbilityDelta < 0 and 180 or 0,90-90*flip},
                                 scale = {0.8, 0.55, 0.55}
                             })
-
+                
                             t.obj.createButton({
                                 label = isNeutralAbility and "■" or "☗",
                                 tooltip = buttonTooltipCounterSingleClick,
-
+                
                                 click_function='DoNothing',
                                 function_owner=self,
-
+                
                                 position =
                                 {
                                     pwAbilityHorizontalOffset * ((-loyaltyHorizontalOffset)*flip*scaler.x),
                                     0.35*flip*scaler.z,
                                     pwAbilityVerticalOffset * scaler.y
                                 },
-
+                
                                 height= 0,
                                 width= 0,
                                 color = colorDarkGrey,
-
+                
                                 font_size= (isNeutralAbility and pwNeutralAbilityFontSize or pwAbilityFontSize) * 0.8,
                                 font_color = colorDarkGrey,
-
+                
                                 rotation={180,pwAbilityDelta < 0 and 0 or 180,90-90*flip},
                                 scale = {0.8, 0.55, 0.55}
                             })
-
+                
                             t.obj.createButton({
                                 label = pwAbilityCost,
                                 tooltip = buttonTooltipCounterSingleClick,
-
+                
                                 click_function='DoNothing',
                                 function_owner=self,
-
+                
                                 position =
                                 {
                                     pwAbilityHorizontalOffset * ((-loyaltyHorizontalOffset)*flip*scaler.x),
                                     0.35*flip*scaler.z,
                                     (pwAbilityVerticalOffset + (pwAbilityDelta <= 0 and pwTinyTextOffset*2 or -pwTinyTextOffset)) * scaler.y
                                 },
-
+                
                                 height= 0,
                                 width= 0,
-
+                
                                 font_size= 55,
                                 font_color = Color.White,
-
+                
                                 rotation={0,0,90-90*flip}
                             })
                         end
@@ -1302,64 +1302,64 @@ function createButtons(t)
                     tooltip =   buttonTooltipOwnershipGem,
                     click_function= "ReceiveGemClick",
                     function_owner=self,
-
+    
                     position=
                     {
                         0,
                         0.35*flip*scaler.z,
                         verticalOffset
                     },
-
+    
                     height= verticalSize,
                     width= horizontalSize,
                     color = colorCardBorderBlack,
-
+    
                     rotation={0,0,90-90*flip},
                     scale = buttonScale
                 })
-
+    
                 --ownership gem
                 t.obj.createButton({
                     click_function='DoNothing',
                     function_owner=self,
-
+    
                     position=
                     {
                         0,
                         0.4*flip*scaler.z,
                         verticalOffset
                     },
-
+    
                     height= verticalSize * 0.7,
                     width= horizontalSize * 0.85,
                     color = Color.Black:lerp(ownershipColor, 0.33),
-
+    
                     rotation={180,0,90-90*flip},
                     scale = buttonScale
                 })
-
+    
                 --control gem
                 t.obj.createButton({
                     click_function= "DoNothing",
                     function_owner=self,
-
+    
                     position=
                     {
                         0,
                         0.45*flip*scaler.z,
                         verticalOffset
                     },
-
+    
                     height= verticalSize * 0.4,
                     width= horizontalSize * 0.66,
                     color = Color.White:lerp(controlColor, 0.66),
-
+    
                     rotation={180,0,90-90*flip},
                     scale = buttonScale
                 })
 
             end
-
+            
             --toggle visibility
             t.obj.createButton({
                 tooltip = buttonTooltipToggleDisplayOwnership,
@@ -1396,7 +1396,7 @@ function createButtons(t)
                 artifactWerecard = {-0.85, -1.280},
                 oldImport = {-0.87, -1.315}
             }
-
+            
             local horizontalOffset
             local verticalOffset
 
@@ -1410,7 +1410,7 @@ function createButtons(t)
                 horizontalOffset = typeOffsets[data.doubleFaceType][1]
                 verticalOffset = typeOffsets[data.doubleFaceType][2]
             end
-
+            
             local dfcSize = 150
             local bgFontSize = 420
 
@@ -1418,12 +1418,12 @@ function createButtons(t)
                 buttonTooltipFlipDFC
 
             local dfcFunction = data.doubleFaceType == "oldImport" and "ReceiveReimportOrChangeActiveFace" or "ReceiveChangeActiveFace"
-
+            
             dfcBGcolor = Color(0.17,0.17,0.12)
             dfcFrameColor = data.doubleFaceType == "oldImport" and Color(1, 0.3, 0) or Color(1, 0.8, 0) --hextooltip highlight color
             dfcTextColor = data.doubleFaceType == "oldImport" and Color(1, 0.8, 0) or Color(1,1,1)
 
-            --bg
+            --bg 
             t.obj.createButton({
                 click_function = dfcFunction,
                 tooltip = dfcTooltip,
@@ -1543,12 +1543,21 @@ function createButtons(t)
 end
 
 function GetPlaneswalkerAbilityVerticalOffset (abilityIndex, abilityCount)
+    local sixSlotOffsets = {
+        1.18 - 0.16*5,
+        1.18 - 0.16*4,
+        1.18 - 0.16*3,
+        1.18 - 0.16*2,
+        1.18 - 0.16*1,
+        1.18 - 0.16*0,
+    }
+    
     local fiveSlotOffsets = {
-        1.12 - 0.21*4,
-        1.12 - 0.21*3,
-        1.12 - 0.21*2,
-        1.12 - 0.21*1,
-        1.12 - 0.21*0,
+        1.08 - 0.20*4,
+        1.08 - 0.20*3,
+        1.08 - 0.20*2,
+        1.08 - 0.20*1,
+        1.08
     }
 
     local fourSlotOffsets = {
@@ -1570,10 +1579,11 @@ function GetPlaneswalkerAbilityVerticalOffset (abilityIndex, abilityCount)
         0.62,
         1.02
     }
-
-    if abilityIndex >= 1 and abilityIndex <= 5 then
-        if (abilityCount >= 5) then
-            if (abilityIndex > 5) then broadcastToAll("[888888][EASY MODULES][-]\nInvalid planeswalker ability index received: "..abilityIndex) end
+    
+    if abilityIndex >= 1 and abilityIndex <= 6 then
+        if (abilityCount >= 6) then
+            return sixSlotOffsets[math.min(abilityIndex,6)]
+        elseif (abilityCount >= 5) then
             return fiveSlotOffsets[math.min(abilityIndex, 5)]
         elseif (abilityCount == 4) then
             return fourSlotOffsets[math.min(abilityIndex, 4)]
@@ -1711,7 +1721,7 @@ function ReceiveChangeActiveFace (tar, ply, alt)
         return
     end
 
-    if data["ownerColor"] ~= nil and data["ownerColor"] ~= "Grey" then
+    if data["ownerColor"] ~= nil and data["ownerColor"] ~= "Grey" then 
         broadcastToAll("[888888][EASY MODULES][-]\nLibrary double-faced card detected, reimporting.")
         ReImport(tar, ply, false)
         return
@@ -1799,7 +1809,7 @@ end
 function GetPlaneswalkerAbilityDelta (dataTable, index)
     local encData = dataTable.encoder.call("APIobjGetPropData",{obj = dataTable.target, propID = pID})
     local data = encData["tyrantUnified"]
-
+    
     dataTable.varDelta = data.cardFaces[data.activeFace]["pwAbilities"][index]["abilityDelta"]
     dataTable.varDelta = (type(dataTable.varDelta) == "number" and dataTable.varDelta or -1) * (dataTable.alt_click and -1 or 1)
 
@@ -1886,14 +1896,14 @@ end
 copyCount = 0
 function MakeExactCopy (tar, ply, alt)
     --based on Exact Copy by Tipsy Hobbit (steam_id: 13465982)
-
+    
     enc = Global.getVar('Encoder')
     if enc ~= nil then
         local encData = enc.call("APIobjGetPropData",{obj = tar, propID = pID})
         local data = encData["tyrantUnified"]
         local flip = enc.call("APIgetFlip",{obj=tar})
         local params = {position = tar.getPosition()}
-
+        
         local horizontalOffsetMultiplier = data.exactCopyOffset % 5 + 1
         local verticalOffsetMultiplier = math.floor(data.exactCopyOffset/5)
 
@@ -1931,7 +1941,7 @@ function MakeExactCopy (tar, ply, alt)
             copiedCard.setLock(true)
             local moduleData = enc.call("APIobjGetProps", {obj = tar})
             local valueData = enc.call("APIobjGetAllData",{obj = tar})
-
+        
             Timer.create({
                 identifier = "exactCopyTimer"..tar.guid..copyCount,
                 function_name = "SetExactCopyData",
@@ -1940,7 +1950,7 @@ function MakeExactCopy (tar, ply, alt)
                 delay = 0.2
             })
         end
-
+        
         Timer.destroy("resetExactCopyOffset"..tar.guid)
         Timer.create({
             identifier = "resetExactCopyOffset"..tar.guid,
@@ -2097,7 +2107,7 @@ end
 function CreateTokenObject(cardData, originalObject)
     local objectName = originalObject.getName()
     local objectDescription = originalObject.getDescription()
-
+    
     local originalObjectData = originalObject.getCustomObject()
     local imageAddress = originalObjectData["face"] ~= nil and originalObjectData["face"] or ""
 
@@ -2135,7 +2145,7 @@ function ParseCardData(dataTable)
         local dataTable = {obj = object}
         data = AutoActivate(dataTable)
     end
-
+    
     if data.hasParsed == false then
         data.hasParsed = true
         if scryfallData ~= nil then
@@ -2159,7 +2169,7 @@ function ParseCardData(dataTable)
                         --honestly just a weird check as none of the old DFCs had the back face name on namefield
                         --whatever, weird checks but ok
                         data.activeFace = dataTable.nameUrlified == backFaceNameUrlified and 2 or 1
-                    end
+                    end 
                 end
             else
                 faceSources[1] = scryfallData
@@ -2177,7 +2187,7 @@ function ParseCardData(dataTable)
                 data = cachedData
             else
                 for index, value in ipairs (faceSources) do
-                    local cardStruct = {nameLine = "", typeLine = "", textLines = {}, power = "", toughness = "", loyalty = ""}
+                    local cardStruct = {nameLine = "", typeLine = "", textLines = {}, power = "", toughness = "", loyalty = ""}    
                     table.insert(cardData, cardStruct)
                     cardData[index]["nameLine"] = faceSources[index]["name"]
                     cardData[index]["typeLine"] = faceSources[index]["type_line"]:gsub("−","-")
@@ -2188,16 +2198,16 @@ function ParseCardData(dataTable)
                 end
 
                 --dirty token fix?
-                -- isToken = cardData[data.activeFace]["typeLine"]:lower():find("token") ~= nil
-                -- if isToken then
-                --     local objectDescription = object.getDescription()
-                --     local startIndex, endIndex = objectDescription:find("%[b%].-%/.-%[%/b%]")
-                --     if startIndex ~= nil then
-                --         local tokenPowtou = objectDescription:sub(startIndex+3,endIndex-4)
-                --         cardData[data.activeFace]["power"] = tokenPowtou:match("^(.-)%/")
-                --         cardData[data.activeFace]["toughness"] = tokenPowtou:match("/(.-)$")
-                --     end
-                -- end
+                isToken = cardData[data.activeFace]["typeLine"]:lower():find("token") ~= nil
+                if isToken then
+                    local objectDescription = object.getDescription()
+                    local startIndex, endIndex = objectDescription:find("%[b%].-%/.-%[%/b%]")
+                    if startIndex ~= nil then
+                        local tokenPowtou = objectDescription:sub(startIndex+3,endIndex-4)
+                        cardData[data.activeFace]["power"] = tokenPowtou:match("^(.-)%/")
+                        cardData[data.activeFace]["toughness"] = tokenPowtou:match("/(.-)$")
+                    end
+                end
 
                 if cardData[data.activeFace]["loyalty"] ~= nil then data.namedCounters = tonumber(cardData[data.activeFace]["loyalty"]) end
                 for index, value in ipairs (cardData) do --goes off once for each face
@@ -2260,7 +2270,7 @@ function ParseCardData(dataTable)
                 if isDFC then
                     frontFaceSplitCheck = cardData[1]["typeLine"]:find("nstant") and true or (cardData[1]["typeLine"]:find("orcery") and true)
                     backFaceSplitCheck = cardData[2]["typeLine"]:find("nstant") and true or (cardData[2]["typeLine"]:find("orcery") and true)
-
+                    
                     if frontFaceSplitCheck and backFaceSplitCheck then
                         data.doubleFaceType = "split"
                     else
@@ -2280,7 +2290,7 @@ function ParseCardData(dataTable)
                             data.doubleFaceType = "werecard"
                         end
                     end
-
+                    
                     if data.doubleFaceType ~= "none" and data.doubleFaceType ~= "flip" and data.doubleFaceType ~= "split" then
                         data.displayDFC = autoActivateDFC
                     end
@@ -2298,7 +2308,7 @@ function ParseCardData(dataTable)
             data.displayPlaneswalkerAbilities = data.cardFaces[data.activeFace]["pwCount"] > 0
             data.displayCounters = autoActivateCounter and (data.cardFaces[data.activeFace].isPlaneswalker or data.hasNonLoyaltyCounter)
         end
-
+        
         encData["tyrantUnified"] = data
         enc.call("APIobjSetPropData",{obj = object, propID = pID, data = encData})
         enc.call("APIrebuildButtons",{obj=object})
@@ -2346,7 +2356,7 @@ function HasKeywordOrNamedCounter(nameLine, description)
             end
         end
     end
-
+    
     return false
 end
 
@@ -2479,7 +2489,7 @@ JSONqueue = {}
 parseYieldInterval = 3
 LuaifyJSONcoroutineInstance = nil
 function LuaifyJSONcoroutineFunction()
-    while JSONqueue[1] ~= nil do
+    while JSONqueue[1] ~= nil do 
         jsonString = table.remove(JSONqueue,1)
         --log("started ||"..jsonString:sub(1, 40).."||")
 
@@ -2504,7 +2514,7 @@ function LuaifyJSONcoroutineFunction()
 
         StoreScryfallData(luaTable)
     end
-
+    
     Wait.stop(luaifyWaitID)
     return ("Parsing queue clear")
 end
@@ -2513,7 +2523,7 @@ end
 function AddParsedKey (jsonString, luaTable)
     local valueKey
     valueKey, jsonString = KeyParse(jsonString)
-
+    
     luaTable[valueKey], jsonString = ParseJSON(jsonString)
     return luaTable, jsonString
 end
@@ -2542,7 +2552,7 @@ end
 function KeyParse(jsonString)
     --log("|||"..jsonString:sub(1, 40).."||")
     local startIndex,endIndex = jsonString:find('^".-":')
-
+    
     local valueKey = jsonString:sub(startIndex + 1, endIndex - 2)
     --log("keyParse "..valueKey)
     return valueKey, jsonString:sub(endIndex + 1)
@@ -2560,9 +2570,9 @@ end
 function ValueParse(jsonString)
     --log("||"..jsonString:sub(1, 40).."||")
     local startIndex,endIndex = jsonString:find('^.-[,%]}$]')
-
-    if not startIndex then
-        startIndex, endIndex = jsonString:find(".$")
+    
+    if not startIndex then 
+        startIndex, endIndex = jsonString:find(".$") 
         endIndex = endIndex + 1
     end
 
@@ -2576,7 +2586,7 @@ function IndexTableParse(jsonString)
     jsonString = jsonString:sub(2)
 
     while not jsonString:find("^%]") do
-
+        
         innerValue, jsonString = ParseJSON(jsonString)
         table.insert(luaTable, innerValue)
     end
@@ -2596,7 +2606,7 @@ function KeyTableParse(jsonString)
     end
 
     jsonString = jsonString:sub(2)
-
+    
     --log("ending keyTable at ||"..trackingString)
     return luaTable, jsonString
 end
@@ -2616,6 +2626,7 @@ function UrlifyCardName (cardName)
     cardName = cardName:gsub("%[.-%]",""):lower()
     cardName = cardName:gsub("[,%']","")
     cardName = cardName:gsub("%s","-")
+    cardName = cardName:gsub("\\","")
     return cardName
 end
 
@@ -2624,7 +2635,7 @@ function AutoActivate(dataTable)
     if enc ~= nil then
         if enc.call("APIpropertyExists",{propID = pID}) == false then
             return
-
+        
         elseif enc.call("APIobjectExists", {obj=dataTable.obj}) ~= nil then
             local encData = enc.call("APIobjGetPropData",{obj=dataTable.obj,propID=pID})
             local data = encData["tyrantUnified"]
@@ -2671,7 +2682,7 @@ function TryAssignOwnership(object, enc)
         data.ownerColor = ownerColor
         data.controllerColor = ownerColor
     end
-
+    
     data.displayOwnership = autoActivateOwnership
 
     encData["tyrantUnified"] = data
@@ -2683,7 +2694,7 @@ function TryTimedParse(dataTable)
         Timer.destroy(dataTable.GUID.."parseTimer")
         return
     end
-
+    
     urlifiedName = UrlifyNameField(dataTable.object)
     if scryfallCardCache[urlifiedName] ~= nil then
         Timer.destroy(dataTable.GUID.."parseTimer")
@@ -2716,7 +2727,7 @@ function onObjectEnterContainer(container, object)
 
     local sourceTable = CheckGetSetCardTable(object, nil)
     local dataTable = {sourceTable = sourceTable, object = container}
-
+    
     Timer.destroy(container.getGUID().."setDataTimer")
     Timer.create({
         identifier = container.getGUID().."setDataTimer",
@@ -2748,7 +2759,7 @@ function CheckGetSetCardTable (card, containerTable)
         cardData = card.getCustomObject()
         cardTable = {cardBack = "", frontFace = "", backFace = "", containerID = "", ownerColor = ""}
         cardTable["frontFace"] = cardData["front"] ~= nil and cardData["front"] or ""
-        cardTable["backFace"] = cardData["back"] ~= nil and cardData["back"]or ""
+        cardTable["backFace"] = cardData["back"] ~= nil and cardData["back"]or "" 
     end
 
     if containerTable ~= nil then
@@ -2800,11 +2811,11 @@ function onObjectEnterScriptingZone(zone, object)
         else
             encoderZones = enc.getTable("Zones")
         end
-
+        
         if encoderZones[zone.getGUID()] ~= nil then
             local cardTable = CheckGetSetCardTable(object)
             local containerGUID = cardTable.containerID
-
+            
             if containerGUID == nil or containerGUID == "" then return end
 
             local playerColor = encoderZones[zone.getGUID()].color
